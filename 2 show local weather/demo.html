@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>demo</title>
+	<link rel="stylesheet" type="text/css" href="demo.css">
+</head>
+<body>
+	<!-- https://sad-xu.github.io/ShowLocalWeather/demo.html-->
+	<div id="left">
+		<img src="weather_icon/2.jpg">
+		<img src="weather_icon/2.jpg">
+		<img src="weather_icon/2.jpg">
+	</div>
+	<div id="right">
+		<img src="weather_icon/1.jpg">
+		<img src="weather_icon/1.jpg">
+		<img src="weather_icon/1.jpg">
+	</div>
+
+
+	<div id="box">
+
+		<input id="xhc" type="text" value="IP">
+		<input id="XHC" type="submit" value="search">
+
+		<ul>
+			<li>
+				<span id="id">本机IP：</span>
+				<input id="ID" type="text" value="输入IP地址">
+			</li>
+			<li id="weather">
+				<span>天&nbsp;&nbsp;&nbsp;&nbsp;气：</span>
+				<img src="weather_icon/0000.gif" alt="天气状况">		
+			</li>
+			<li>
+				<span>城&nbsp;&nbsp;&nbsp;&nbsp;市：</span>
+				<span id="city"></span>
+			</li>
+			<li>
+				<span>温&nbsp;&nbsp;&nbsp;&nbsp;度：</span>
+				<span id="temp"></span>
+			</li>
+			<li>
+				<span>风&nbsp;&nbsp;&nbsp;&nbsp;力：</span>
+				<span id="wid"></span>
+			</li>
+			<li>
+				<span>湿&nbsp;&nbsp;&nbsp;&nbsp;度：</span>
+				<span id="hum"></span>
+			</li>
+		</ul>
+		<input id="re" type="submit" value="查询">
+		<p>说明：输入IP地址，点击查询</p>
+		<p id="warn"></p>
+		<p>注：火狐浏览器会阻止载入内容，其他浏览器未知</p>
+		<p>再注：移动端可以访问,但未对移动端进行优化</p>
+		<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;示例IP：58.215.185.154</p>
+
+		<p>作者：徐浩聪 </p>
+		<p>待完善</p>
+	</div>
+
+
+
+	
+	<script type="text/javascript" src="lib/jquery-3.1.1.min.js"></script>
+	<!-- https不支持 <script type="text/javascript" src="http://pv.sohu.com/cityjson?ie=utf-8" charset="gb2312"></script>-->
+	<script type="text/javascript" src="lib/demo3.js"></script>
+	
+</body>
+</html>
