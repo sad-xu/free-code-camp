@@ -101,4 +101,5 @@ html,body {
 	z-index: 50;
 	margin-top: 35vmin;
 	background-color: rgba(100,100,100,0.5);
+	display: none;
 }
