@@ -24,68 +24,93 @@ var simon = {
 	comArr : []	    // 电脑数组 0 1 2 3
 }
 
-function restart() {
+function restart() {  //初始化
 	simon.level = 0;
 	simon.player = [];
 	simon.comArr = [];
 }
 
 function start() {
-	//if (simon.status === "on" && simon.level === 0) {
-		count.innerHTML = simon.level;
-		addComArr();
-		sing();
-	//}
+		wrapper.setAttribute("style", "display:block");
+  	count.innerHTML = simon.level;
+		console.log(simon.comArr);
+		singing();
 }
 
-function addComArr() {
+function addComArr () {
 	simon.comArr.push(Math.floor(Math.random() * 4));  // 0 1 2 3
 }
 
-function sing() {
-	simon.comArr.forEach(function(item, index, array) {
-		switch (item) {
-			case 0:
-				whichSing(color0, sound0);
-				break;
-			case 1:
-				whichSing(color1, sound1);
-				break;
-			case 2:
-				whichSing(color2, sound2);
-				break;
-			case 3:
-				whichSing(color3, sound3);
-				break;
-		}
-	});
+
+function singing () { // 递归实现按顺序延迟
+	var i = 0;
+	sing(i)
 }
 
-function whichSing(color, sound) {
-	setTimeout(function() {
+function sing (index) {
+	var item = simon.comArr[index];
+	index++;
+	switch (item) {
+		case 0:
+			whichSing(color0, sound0);
+			break;
+		case 1:
+			whichSing(color1, sound1);
+			break;
+		case 2:
+			whichSing(color2, sound2);
+			break;
+		case 3:
+			whichSing(color3, sound3);
+			break;
+	}
+	if (index === simon.comArr.length) {  // 控制遮罩层消失
+		setTimeout(function () {
+			wrapper.setAttribute("style", "display:none");
+		}, 650);
+	}		
+	if (index < simon.comArr.length) {		
+		setTimeout(function () {
+			sing(index);
+		}, 650);
+	}
+}
+
+
+function whichSing (color, sound) {
+	setTimeout(function () {
 		color.classList.add("fade");
 		sound.play();		
-	}, 100);
-	setTimeout(function() {
+	}, 10);
+	setTimeout(function () {
 		color.classList.remove("fade");
-	},400);
+	},290);
 }
 
-function checkInput(a) {
-	simon.player.push(a);
-	var length = simon.player.length;
-	if (a !== simon.comArr[length - 1]) {
+function checkInput (item) {
+	simon.player.push(item);
+	var len = simon.player.length;
+	if (item !== simon.comArr[len - 1]) {
 		console.log("wrong");  // 出现错误
-		
+		simon.player = [];
+		setTimeout(function () {
+			start();
+		}, 1000);
+		return;
 	}
-	if (length === simon.comArr.length) {
+	if (len === simon.comArr.length) {
 		// 完全匹配
-
-
+		count.innerHTML = simon.level++;
+		console.log("next level");
+		simon.player = [];
+		setTimeout(function () {
+			addComArr();
+			start();
+		}, 1000);
+		return;
 	}
-
-
 }
+
 
 // 点击事件
 
@@ -94,14 +119,14 @@ onOff.parentNode.addEventListener("click", function(event) {  //总开关
 		count.innerHTML = "--";
 		count.setAttribute("style", "color:#e03838");
 		onOff.setAttribute("style", "left:50%;background-color:green");
-		wrapper.setAttribute("style", "display:none");
+		wrapper.setAttribute("style", "display:block");
 		startButton.setAttribute("style", "background-color:red");
 		restart();
 		simon.status = "on";
 	} else {
 		count.setAttribute("style", "color:#453a3a");
 		onOff.setAttribute("style", "left:0;background-color:red");
-		wrapper.setAttribute("style", "display:block");
+		wrapper.setAttribute("style", "display:none");
 		startButton.setAttribute("style", "background-color:grey");
 		simon.status = "off";
 	}
@@ -109,30 +134,29 @@ onOff.parentNode.addEventListener("click", function(event) {  //总开关
 
 startButton.addEventListener("click", function(event) {
 	if (simon.status === "on" && simon.level === 0) {
+		addComArr();
 		start();
 	}
-	
-	
-},false);
+}, false);
 
-colorWrapper.addEventListener("mousedown", function(event) {
+colorWrapper.addEventListener("click", function(event) {
 	var target = event.target;
 	switch (target.classList[0]) {
 		case "color0" :
 			checkInput(0);
-			sound0.play();		
+			whichSing(color0, sound0);		
 			break;
 		case "color1" :
 			checkInput(1);
-			sound1.play();
+			whichSing(color1, sound1);
 			break;
 		case "color2" :
 			checkInput(2);
-			sound2.play();
+			whichSing(color2, sound2);
 			break;
 		case "color3" :
 			checkInput(3);
-			sound3.play();
+			whichSing(color3, sound3);
 			break;		
 	}
 }, false);

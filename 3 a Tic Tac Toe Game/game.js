@@ -101,7 +101,6 @@ function dropChess(i, j) {   // 落子
 		pauseWrapper.setAttribute("style", "display:none");   // 遮罩关
 
 		win = winner("ai");  
-		console.log('win = ' + win);
 	  if (win === 3) {
 			gameOver("You loss");   
 			return;
@@ -186,13 +185,12 @@ function whoWin(who, arr){
 	winArr.forEach(function(item) {
 		flag = 0;
 		item.forEach(function(ite) {
-			arr.forEach(function(ite2) {
+			arr.forEach(function(ite2) {	
 				if (ite2.loc.toString() === ite.toString()) {
 					flag++;
 				}
 			});		 					
 			if (flag === 3) {
-				console.log("flag = "+ flag)
 				if (who === "ai") {
 					gameOver("You loss!");
 				} else {
@@ -205,7 +203,7 @@ function whoWin(who, arr){
 	return 0;
 }
 
-function scan(yous, ais){  // 扫描棋盘
+function scan(){  // 扫描棋盘
 	var yous = [], ais = [];
 	Arr.forEach(function(item, index, array) {
 		if (item.val == you) {
@@ -242,7 +240,17 @@ board.addEventListener("click", function(event) {
 			target.setAttribute("class", you);
 			step++;
 			console.log(step);
-			AI();  // 轮到AI
+
+			var win = winner("you");
+			console.log('WIN = ' + win)
+			if (win === 2) {
+				gameOver("you win 1");      // 最后一子是玩家下的
+				return;
+			}	else {
+				AI();  // 轮到AI
+			}	
+
+			
 		}
 	}
 }, false);
