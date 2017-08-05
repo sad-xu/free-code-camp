@@ -4,3 +4,5 @@
 2. [weather](https://sad-xu.github.io/free-code-camp/2%20show%20local%20weather/demo.html)  *已失效*
 3. [a Tic Tac Toe Game](https://sad-xu.github.io/free-code-camp/3%20a%20Tic%20Tac%20Toe%20Game/game.html)
 4. [Simon Game](https://sad-xu.github.io/free-code-camp/4%20Simon%20Game/simon.html)
+5. [Walkie Game]() 
+6. [Visual Sort]() 
